@@ -5,6 +5,7 @@ import {
     updateStack,
     countPieces
 } from "./Othello.js";
+import R from "./ramda.js";
 
 const board = document.getElementById("game-board");
 const num_rows = 8;
@@ -43,8 +44,8 @@ function handleCellClick(row, col) {
     }
 }
 
-Array.from({length: num_rows}).forEach(function (_, row) {
-    Array.from({length: num_cols}).forEach(function (_, col) {
+R.times(function (row) {
+    R.times(function (col) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
         cell.dataset.row = row;
@@ -53,7 +54,7 @@ Array.from({length: num_rows}).forEach(function (_, row) {
             handleCellClick(row, col);
         });
         board.appendChild(cell);
-    });
-});
+    }, num_cols);
+}, num_rows);
 
 render();
