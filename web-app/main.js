@@ -3,8 +3,11 @@ import {
     playMove,
     hasLegalMove,
     updateStack,
+    isLegalMove,
+    getCurrentTurn,
     countPieces
 } from "./Othello.js";
+
 import R from "./ramda.js";
 
 const board = document.getElementById("game-board");
@@ -52,6 +55,15 @@ R.times(function (row) {
         cell.dataset.col = col;
         cell.addEventListener("click", function () {
             handleCellClick(row, col);
+        });
+        cell.addEventListener("mouseenter", function () {
+            const turn = getCurrentTurn();
+            if (isLegalMove(row, col, turn)) {
+                cell.classList.add("valid");
+            }
+        });
+        cell.addEventListener("mouseleave", function () {
+            cell.classList.remove("valid");
         });
         board.appendChild(cell);
     }, num_cols);

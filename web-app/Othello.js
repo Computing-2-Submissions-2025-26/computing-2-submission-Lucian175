@@ -32,15 +32,28 @@ function createInitialBoard() {
 let board = createInitialBoard();
 let currentTurn = "black";
 
+
+/**
+ * Gets board
+ * @returns {array}
+ */
 function getBoard() {
     return board;
 }
 
+/**
+ * Gets current turn
+ * @returns
+ */
 function getCurrentTurn() {
     return currentTurn;
 }
 
-
+/**
+ * Get
+ * @param {*} colour
+ * @returns
+ */
 function opponent(colour) {
     return (
         colour === "black"
@@ -50,7 +63,12 @@ function opponent(colour) {
 }
 
 
-
+/**
+ * Checks if a given set of coordinates is on the gameboard.
+ * @param {*} row
+ * @param {*} col
+ * @returns {boolean}
+ */
 function isOnBoard(row, col) {
     return row >= 0 && row < SIZE && col >= 0 && col < SIZE;
 }
@@ -127,6 +145,18 @@ function isLegalMove(row, col, colour) {
  * @returns {boolean}
  */
 function hasLegalMove(colour) {
+    // If the player has no discs remaining they cannot play even if there
+    // are legal board positions. Check the internal counters directly to
+    // avoid referencing a later-declared helper.
+    let remainingCount = (
+        colour === "black"
+        ? blackRemaining
+        : whiteRemaining
+    );
+    if (remainingCount <= 0) {
+        return false;
+    }
+
     return R.any(function (r) {
         return R.any(function (c) {
             return isLegalMove(r, c, colour);
@@ -161,6 +191,16 @@ function getRemaining(colour) {
  */
 function playMove(row, col) {
     const colour = currentTurn;
+
+    if (colour === "black") {
+        if (blackRemaining <= 0) {
+            return false;
+        }
+    } else {
+        if (whiteRemaining <= 0) {
+            return false;
+        }
+    }
 
     if (!isLegalMove(row, col, colour)) {
         return false;
@@ -242,6 +282,12 @@ function displayWinner(colour) {
     }
 }
 
+/**
+ * Activates the pop-up showing who won the game.
+ * @param {*} src
+ * @param {*} alt
+ * @returns
+ */
 function showResultOverlay(src, alt) {
     try {
         const container = document.getElementById("game-result");
@@ -293,13 +339,21 @@ function countPieces() {
     }
 }
 
+function resetGame() {
+    board = createInitialBoard();
+    currentTurn = "black";
+    blackRemaining = 30;
+    whiteRemaining = 30;
+}
 
 export {
     getBoard,
     getCurrentTurn,
     playMove,
     hasLegalMove,
+    isLegalMove,
     getRemaining,
     updateStack,
-    countPieces
+    countPieces,
+    resetGame
 };
