@@ -1,3 +1,5 @@
+import R from "./ramda.js";
+
 const SIZE = 8;
 const DIRECTIONS = [
     [-1, -1],
@@ -15,11 +17,11 @@ const DIRECTIONS = [
  * @returns {array} - The board with starting pieces in place.
  */
 function createInitialBoard() {
-    const newBoard = Array.from({length: SIZE}, function () {
-        return Array.from({length: SIZE}, function () {
+    const newBoard = R.times(function () {
+        return R.times(function () {
             return null;
-        });
-    });
+        }, SIZE);
+    }, SIZE);
     newBoard[3][3] = "white";
     newBoard[3][4] = "black";
     newBoard[4][3] = "black";
@@ -41,7 +43,9 @@ function getCurrentTurn() {
 
 function opponent(colour) {
     return (
-        colour === "black" ? "white" : "black"
+        colour === "black"
+        ? "white"
+        : "black"
     );
 }
 
@@ -90,11 +94,12 @@ function getFlipsInDirection(row, col, colour, dRow, dCol) {
  */
 function getAllFlips(row, col, colour) {
     let allFlips = [];
-    DIRECTIONS.forEach(function (direction) {
-        const flips = getFlipsInDirection(row, col, colour, direction[0],
-            direction[1]);
+    R.forEach(function (direction) {
+        const dRow = direction[0];
+        const dCol = direction[1];
+        const flips = getFlipsInDirection(row, col, colour, dRow, dCol);
         allFlips = allFlips.concat(flips);
-    });
+    }, DIRECTIONS);
     return allFlips;
 }
 
@@ -122,15 +127,11 @@ function isLegalMove(row, col, colour) {
  * @returns {boolean}
  */
 function hasLegalMove(colour) {
-    let found = false;
-    Array.from({ length: SIZE }).forEach(function (_, row) {
-        Array.from({ length: SIZE }).forEach(function (_, col) {
-            if (isLegalMove(row, col, colour)) {
-                found = true;
-            }
-        });
-    });
-    return found;
+    return R.any(function (r) {
+        return R.any(function (c) {
+            return isLegalMove(r, c, colour);
+        }, R.range(0, SIZE));
+    }, R.range(0, SIZE));
 }
 
 
@@ -145,7 +146,9 @@ let whiteRemaining = 30;
  */
 function getRemaining(colour) {
     return (
-        colour === "black" ? blackRemaining : whiteRemaining
+        colour === "black"
+        ? blackRemaining
+        : whiteRemaining
     );
 }
 
@@ -165,9 +168,9 @@ function playMove(row, col) {
 
     const flips = getAllFlips(row, col, colour);
     board[row][col] = colour;
-    flips.forEach(function (position) {
+    R.forEach(function (position) {
         board[position[0]][position[1]] = colour;
-    });
+    }, flips);
 
     if (colour === "black") {
         blackRemaining -= 1;
@@ -195,11 +198,11 @@ function updateStack(color) {
     const remaining = getRemaining(color);
     const turn = getCurrentTurn();
 
-    Array.from(stack.querySelectorAll(".disc-edge-img")).forEach(function (edge) {
+    R.forEach(function (edge) {
         edge.remove();
-    });
+    }, Array.from(stack.querySelectorAll(".disc-edge-img")));
 
-    Array.from({ length: Math.max(remaining - 1, 0) }).forEach(function () {
+    R.times(function () {
         const edge = document.createElement("img");
         edge.classList.add("disc-edge-img", color);
         edge.src = "./assets/disc-edge.svg";
@@ -210,16 +213,18 @@ function updateStack(color) {
         } else {
             stack.insertBefore(edge, top);
         }
-    });
+    }, Math.max(remaining - 1, 0));
 
     if (remaining <= 0) {
         top.style.display = "none";
     } else {
         top.style.display = "block";
+        const discFile = "./assets/disc-" + color + ".svg";
         top.src = (
             turn === color
-                ? "./assets/disc-" + color + ".svg"
-                : "./assets/disc-edge.svg");
+            ? discFile
+            : "./assets/disc-edge.svg"
+        );
     }
 }
 
@@ -240,7 +245,9 @@ function displayWinner(colour) {
 function showResultOverlay(src, alt) {
     try {
         const container = document.getElementById("game-result");
-        if (!container) { return; }
+        if (!container) {
+            return;
+        }
         container.innerHTML = "";
         const img = document.createElement("img");
         img.src = src;
@@ -249,6 +256,7 @@ function showResultOverlay(src, alt) {
         container.classList.remove("hidden");
     } catch (e) {
         // ignore if DOM not present (e.g., tests)
+        console.debug(e);
     }
 }
 
@@ -260,15 +268,15 @@ function countPieces() {
     let black = 0;
     let white = 0;
 
-    Array.from({ length: SIZE }).forEach(function (_, r) {
-        Array.from({ length: SIZE }).forEach(function (_, c) {
+    R.times(function (r) {
+        R.times(function (c) {
             if (board[r][c] === "black") {
                 black += 1;
             } else if (board[r][c] === "white") {
                 white += 1;
             }
-        });
-    });
+        }, SIZE);
+    }, SIZE);
 
     if (black > white) {
         displayWinner("black");
