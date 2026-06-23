@@ -1,0 +1,48 @@
+import assert from "node:assert";
+import {
+    getBoard,
+    getCurrentTurn,
+    playMove,
+    getRemaining,
+    resetGame
+} from "../Othello.js";
+
+describe("playMove", function () {
+    beforeEach(function () {
+        resetGame();
+    });
+
+    it("rejects an illegal move and leaves board/turn unchanged", function () {
+        const turnBefore = getCurrentTurn();
+        const result = playMove(0, 0);
+        assert.strictEqual(result, false);
+        assert.strictEqual(getCurrentTurn(), turnBefore);
+    });
+
+    it("places a piece and flips the correct opponent disc", function () {
+        const result = playMove(2, 3);
+        assert.strictEqual(result, true);
+        const board = getBoard();
+        assert.strictEqual(board[2][3], "black");
+        assert.strictEqual(board[3][3], "black");
+    });
+
+    it("switches turn to white after a legal black move", function () {
+        playMove(2, 3);
+        assert.strictEqual(getCurrentTurn(), "white");
+    });
+
+    it("decrements only the playing colour's remaining count", function () {
+        const blackBefore = getRemaining("black");
+        const whiteBefore = getRemaining("white");
+        playMove(2, 3);
+        assert.strictEqual(getRemaining("black"), blackBefore - 1);
+        assert.strictEqual(getRemaining("white"), whiteBefore);
+    });
+
+    it("does not change remaining count on an illegal move", function () {
+        const blackBefore = getRemaining("black");
+        playMove(0, 0);
+        assert.strictEqual(getRemaining("black"), blackBefore);
+    });
+});
