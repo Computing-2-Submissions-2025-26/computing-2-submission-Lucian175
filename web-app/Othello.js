@@ -134,7 +134,6 @@ function hasLegalMove(colour) {
 }
 
 
-
 let blackRemaining = 30;
 let whiteRemaining = 30;
 
@@ -190,38 +189,109 @@ function playMove(row, col) {
  * Updates the displayed disc stack
  * @param {*} colour
  */
-function updateStack(colour) {
-    const stack = document.getElementById(colour + "-stack");
-    const top = document.getElementById(colour + "-top");
-    const remaining = getRemaining(colour);
-    const turn = getCurrentTurn();
+function updateStack(color) {
+  const stack = document.getElementById(color + "-stack");
+  const top = document.getElementById(color + "-top");
+  const remaining = getRemaining(color);
+  const turn = getCurrentTurn();
 
-    Array.from(stack.querySelectorAll(".disc-edge")).forEach(function (edge) {
-        edge.remove();
-    });
+  Array.from(stack.querySelectorAll(".disc-edge-img")).forEach(function (edge) {
+    edge.remove();
+  });
 
-    Array.from({ length: Math.max(remaining - 1, 0) }).forEach(function () {
-        const edge = document.createElement("div");
-        edge.classList.add("disc-edge", colour);
-        stack.insertBefore(edge, top);
-    });
+  Array.from({ length: Math.max(remaining - 1, 0) }).forEach(function () {
+    const edge = document.createElement("img");
+    edge.classList.add("disc-edge-img", color);
+    edge.src = "./assets/disc-edge.svg";
+    edge.alt = color + " disc edge";
 
-    if (remaining <= 0) {
-        top.style.display = "none";
+    if (color === "black") {
+      stack.insertBefore(edge, stack.firstChild);
     } else {
-        top.style.display = "block";
-        if (turn === colour) {
-            top.classList.remove("not-active-turn");
-        } else {
-        top.classList.add("not-active-turn");
-        }
+      stack.insertBefore(edge, top);
+    }
+  });
+
+  if (remaining <= 0) {
+    top.style.display = "none";
+  } else {
+    top.style.display = "block";
+    top.src = (
+        turn === color
+            ? "./assets/disc-" + color + ".svg"
+            : "./assets/disc-edge.svg");
+  }
+}
+
+/**
+ * Displays which player won the game in the console
+ * @param {*} colour 
+ */
+function displayWinner(colour) {
+    if (colour === "black") {
+        console.log("black wins");
+    } else if (colour === "white") {
+        console.log("white wins");
+    } else if (colour === "tie") {
+        console.log("it's a tie");
+    }
+}
+
+/**
+ * Count pieces on the board and declare the winner (or tie).
+ * Returns an object with the counts and the winner string.
+ */
+function countPieces() {
+    let black = 0;
+    let white = 0;
+
+    Array.from({ length: SIZE }).forEach(function (_, r) {
+        Array.from({ length: SIZE }).forEach(function (_, c) {
+            if (board[r][c] === "black") {
+                black += 1;
+            } else if (board[r][c] === "white") {
+                white += 1;
+            }
+        });
+    });
+
+    if (black > white) {
+        displayWinner("black");
+        showResultOverlay("./assets/win-black.svg", "Black wins");
+        return {black: black, white: white, winner: "black"};
+    } else if (white > black) {
+        displayWinner("white");
+        showResultOverlay("./assets/win-white.png", "White wins");
+        return {black: black, white: white, winner: "white"};
+    } else {
+        displayWinner("tie");
+        showResultOverlay("./assets/tie.svg", "Tie");
+        return {black: black, white: white, winner: "tie"};
     }
 }
 
 
-function countPieces() {
-    //Iteartes over board and counts up pieces
+function showResultOverlay(src, alt) {
+    try {
+        const container = document.getElementById("game-result");
+        if (!container) { return; }
+        container.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = alt;
+        container.appendChild(img);
+        container.classList.remove("hidden");
+    } catch (e) {
+        // ignore if DOM not present (e.g., tests)
+    }
 }
 
-
-export {getBoard, getCurrentTurn, playMove, hasLegalMove, getRemaining, updateStack};
+export {
+    getBoard,
+    getCurrentTurn,
+    playMove,
+    hasLegalMove,
+    getRemaining,
+    updateStack,
+    countPieces
+};

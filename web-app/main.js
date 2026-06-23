@@ -1,33 +1,17 @@
-import {getBoard, getCurrentTurn, playMove, hasLegalMove, getRemaining, updateStack}
-from "./Othello.js";
+import {
+    getBoard,
+    playMove,
+    hasLegalMove,
+    updateStack,
+    countPieces
+} from "./Othello.js";
 
 const board = document.getElementById("game-board");
 const num_rows = 8;
 const num_cols = 8;
 
-Array.from({length: num_rows}).forEach(function (_, row) {
-    Array.from({length: num_cols}).forEach(function (_, col) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
-        cell.dataset.row = row;
-        cell.dataset.col = col;
-        cell.addEventListener("click", function () {
-            handleCellClick(row, col);
-        });
-        board.appendChild(cell);
-    });
-});
-
-function handleCellClick(row, col) {
-    const moved = playMove(row, col);
-    if (moved) {
-        render();
-    }
-}
-
 function render() {
     const currentBoard = getBoard();
-    const turn = getCurrentTurn();
     const cells = document.querySelectorAll(".cell");
 
     Array.from(cells).forEach(function (cellElement) {
@@ -45,11 +29,31 @@ function render() {
     });
 
     if (!hasLegalMove("black") && !hasLegalMove("white")) {
-        // Win condition
+        countPieces();
     }
 
     updateStack("black");
     updateStack("white");
 }
+
+function handleCellClick(row, col) {
+    const moved = playMove(row, col);
+    if (moved) {
+        render();
+    }
+}
+
+Array.from({length: num_rows}).forEach(function (_, row) {
+    Array.from({length: num_cols}).forEach(function (_, col) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.row = row;
+        cell.dataset.col = col;
+        cell.addEventListener("click", function () {
+            handleCellClick(row, col);
+        });
+        board.appendChild(cell);
+    });
+});
 
 render();

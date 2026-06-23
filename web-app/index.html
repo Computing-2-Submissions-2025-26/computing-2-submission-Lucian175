@@ -6,21 +6,23 @@
 <link rel="stylesheet" href="default.css">
 
 
-<body>
-  <div id="game-wrapper">
-    <div class="disc-stack" id="black-stack">
-      <div class="disc-top black" id="black-top"></div>
-    </div>
+<main>
+    <div id="game-result" class="hidden" role="status" aria-live="polite"></div>
+    <div id="game-wrapper">
 
-    <div id="board-area">
-      <div id="game-board"></div>
-    </div>
+        <div class="disc-stack" id="black-stack">
+            <img class="disc-top" id="black-top" src="./assets/disc-black.svg" alt="Black disc">
+        </div>
 
-    <div class="disc-stack" id="white-stack">
-      <div class="disc-top white" id="white-top"></div>
+        <div id="board-area">
+            <div id="game-board"></div>
+        </div>
+
+        <div class="disc-stack" id="white-stack">
+            <img class="disc-top" id="white-top" src="./assets/disc-white.svg" alt="White disc">
+        </div>
     </div>
-  </div>
-</body>
+</main>
 
 
 </html>
