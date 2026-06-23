@@ -1,235 +1,112 @@
-:root{
-    --aside-width: 28%;
-    --reset-button-height: 7.5%;
-    --reset-button-width: 94%;
-
-    /*
-    Playing piece colours
-    */
-    --red-piece: #FF5D4F;
-    --orange-piece:#FF8C4F;
-    --yellow-piece: #FFE54F;
-    --green-piece: #87CD77;
-    --blue-piece: #669ACA;
-    --purple-piece: #9751C5;
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #966A52;
+  font-family: sans-serif;
 }
 
-body{
-    background-color: red;
-}
-
-#logo{
-    width: 90%;
-    max-height: 20%;
-}
-
-#game-setup{
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    background-color: red;
-    visibility: hidden;
-}
-
-aside{
-    background-color: #1e1e1e;
-    color: white;
-    font-family: 'Love ya like a sister';
-    text-align: center;
-    height: 100%;
-    right: 0px;
-    position: absolute;
-    top: 0px;
-    width: var(--aside-width);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-main{
-    background-color: #4b4b4b;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    width: calc(100% - var(--aside-width));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#game-board{
-    width: 90%;
-    max-height: 90vh;
-}
-
-#reset-button{
-    background-color: red;
-    bottom: 12px;
-    border: none;
-    border-radius: 22px;
-    box-shadow: 4px 4px #980000;
-    color: white;
-    cursor: pointer;
-    font-family: 'pompiere';
-    font-size: 30px;
-    height: var(--reset-button-height);
-    left: 3%;
-    position: absolute;
-    width: var(--reset-button-width);
-}
-
-#reset-button:active{
-    background-color: orangered;
-    box-shadow: none;
-    transform: translateY(4px) translateX(4px);
-}
-
-#setup-window{
-    position: absolute;
-    width: 100%;
-    color: white;
-    aspect-ratio: 1.5;
-    max-height: 80%;
-}
-
-#done-button{
-    background-color: rgb(50, 133, 34);
-    font-family: 'pompiere';
-    color: white;
-    font-size: 30px;
-    border: none;
-    border-radius: 22px;
-    cursor: pointer;
-    position: absolute;
-    width: 70%;
-    height: 7.5%;
-    right: 3%;
-    bottom: 12px;
-    box-shadow: 4px 4px rgb(10, 41, 10);
-}
-
-#quit-button{
-    position: absolute;
-    font-family: 'pompiere';
-    color: white;
-    cursor: pointer;
-    font-size: 30px;
-    box-shadow: 4px 4px darkred;
-    background-color: red;
-    border: none;
-    border-radius: 22px;
-    bottom: 12px;
-    left: 3%;
-    height: 7.5%;
-    width: 20%;
-}
-
-#quit-button:active{
-    background-color: orangered;
-    box-shadow: none;
-    transform: translateY(4px) translateX(4px);
-}
-
-#done-button:active{
-    background-color: green;
-    box-shadow: none;
-    transform: translateY(4px) translateX(4px);
-}
-
-/* .setup{display:none}
-
-.setup-buttons{display: none;} */
-
-
-.hidden {
-  display: none;
-}
-
-#player-count-selector {
-    justify-content: center;
+#game-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 4vmin;
 }
 
-#player-count-display {
-  font-size: 1.2rem;
-  min-width: 24px;
-  text-align: center;
-}
-
-.team-selector {
-  border-collapse: collapse;
-  margin-bottom: 8px;
-}
-
-.team-selector td {
-  padding: 4px;
-}
-
-.team-icon {
-  background: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 2px;
-}
-
-.team-icon img {
-  width: 40px;
-  height: 40px;
-  filter: grayscale(100%);
-  opacity: 0.4;
-  display: block;
-}
-
-.team-icon.selected img {
-  filter: none;
-  opacity: 1;
-}
-
-.team-icon.selected {
-  border-color: #333;
-}
-
-#setup-buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-#current-teams {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-}
-
-#other-teams {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid #ccc;
-}
-
-.other-player-group {
+#board-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
 }
 
-.large-icon {
-  width: 120px;
-  height: 120px;
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 0.5%;
+  background: #242424;
+  padding: 0.8%;
+  border-radius: 1.5%;
+  width: 90vmin;
+  max-width: 922px;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
 }
 
-.small-icon {
-  width: 30px;
-  height: 30px;
+.cell {
+  background: #479450;
+  border-radius: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.piece {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+}
+
+.piece.black {
+  background: #000;
+}
+
+.piece.white {
+  background: #fff;
+}
+
+/* side disc stacks */
+.disc-stack {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 15vmin;
+}
+
+.disc-edge {
+  width: 6vmin;
+  height: 1vmin;
+  border-radius: 2px;
+  margin-top: -0.3vmin;
+}
+
+.disc-edge.black {
+  background: repeating-linear-gradient(
+    to bottom,
+    #000 0px, #000 4px,
+    #fff 4px, #fff 8px
+  );
+}
+
+.disc-edge.white {
+  background: repeating-linear-gradient(
+    to bottom,
+    #fff 0px, #fff 4px,
+    #000 4px, #000 8px
+  );
+}
+
+.disc-top {
+  width: 6vmin;
+  height: 6vmin;
+  border-radius: 50%;
+  margin-top: -0.3vmin;
+  transition: transform 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+}
+
+.disc-top.black {
+  background: #000;
+}
+
+.disc-top.white {
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.disc-top.not-active-turn {
+  height: 1vmin;
+  border-radius: 2px;
+  transform: rotateX(75deg);
 }
