@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<script type="module" src="main.js"></script>
 <meta charset="UTF-8">
 <title>Othello</title>
 <link rel="stylesheet" href="default.css">
+<script type="module" src="main.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Loved+by+the+King&display=swap" rel="stylesheet">
 
-
-<main>
+<body>
     <div id="game-result" class="hidden" role="status" aria-live="polite"></div>
     <div id="game-wrapper">
-
         <div class="disc-stack" id="black-stack">
             <img class="disc-top" id="black-top" src="./assets/disc-black.svg" alt="Black disc">
         </div>
@@ -22,8 +23,8 @@
             <img class="disc-top" id="white-top" src="./assets/disc-white.svg" alt="White disc">
         </div>
     </div>
+        Click tab to toggle between keyboard and mouse modes
     <img id="mode-indicator" src="./assets/mouse.svg" alt="Mouse mode">
-</main>
-
+</body>
 
 </html>

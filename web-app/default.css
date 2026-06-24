@@ -1,131 +1,145 @@
+/* Variables */
 :root {
-    --background-colour: #966A52;
+    --body-font-colour: #fff;
+    --body-font-size: 2.5vmin;
+
     --board-border-colour: #242424;
     --board-colour: #479450;
     --board-spacing: 0.8%;
     --board-width: min(90vmin, 75vw);
+    --background-colour: #966A52;
 
-    --disc-width: min(11vmin, 9vw);
+    --stack-disc-width: min(11vmin, 9vw);
     --stack-gap: min(4vmin, 4vw);
 
     --selected-cell: #ffffff99;
     --selected-cell-2: #ffffff1f;
+
+    --disc-size: 80%;
 }
 
+
+/* General Use Stuff */
 body {
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    overflow: hidden;
     background: var(--background-colour);
-}
-
-#board-area {
+    color: var(--body-font-colour);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex-shrink: 1;
-    min-width: 0;
-}
-
-#game-board {
-    display: grid;
-    grid-template-columns: repeat(var(--num-cols), 1fr);
-    grid-template-rows: repeat(var(--num-rows), 1fr);
-    gap: var(--board-spacing);
-    background: var(--board-border-colour);
-    padding: var(--board-spacing);
-    border-radius: 1.5%;
-    width: var(--board-width);
-    max-width: 100%;
-    aspect-ratio: var(--num-cols)/var(--num-rows);
-}
-
-#game-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4vmin;
-  width: 100%;
-  max-width: 100vw;
-  box-sizing: border-box;
-  padding: 0 4vmin;
-}
-
-#white-stack {
-  flex-direction: column;
-}
-
-#black-stack {
-  flex-direction: column-reverse;
-}
-
-
-.disc-stack {
-    display: flex;
-    align-items: center;
-    flex-shrink: 1;
-    min-width: 0;
-}
-
-.disc-edge-img,
-.disc-top {
-  width: var(--disc-width);
-  max-width: 100%;
-}
-
-.cell {
-    background: var(--board-colour);
-    border-radius: 5%;
-    display: flex;
-    align-items: center;
+    font-family: "Loved by the king";
+    font-size: var(--body-font-size);
     justify-content: center;
-}
-
-.cell.valid {
-    box-shadow: 0 0 0.8vmin 0.2vmin var(--selected-cell) inset,
-                0 0 1.2vmin var(--selected-cell-2);
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-.piece {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    display: block;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
 }
 
 .hidden { 
     display: none;
 }
 
+/* Gameboard Styling */
+#board-area {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.cell {
+    align-items: center;
+    background: var(--board-colour);
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.cell.valid {
+    box-shadow: 0 0 0.8vmin 0.2vmin var(--selected-cell) inset,
+                0 0 1.2vmin var(--selected-cell-2);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#game-board {
+    aspect-ratio: var(--num-cols)/var(--num-rows);
+    background: var(--board-border-colour);
+    border-radius: 1.5%;
+    display: grid;
+    grid-template-columns: repeat(var(--num-cols), 1fr);
+    grid-template-rows: repeat(var(--num-rows), 1fr);
+    gap: var(--board-spacing);
+    max-width: 100%;
+    padding: var(--board-spacing);
+    width: var(--board-width);
+}
+
+#game-wrapper {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    gap: 4vmin;
+    justify-content: center;
+    max-width: 100vw;
+    padding: 0 4vmin;
+    width: 100%;
+}
+
+/* Discs and Stack Styling */
+#black-stack {
+    flex-direction: column-reverse;
+}
+
+.disc-edge-img,
+.disc-top {
+    max-width: 100%;
+    width: var(--stack-disc-width);
+}
+
+.disc-stack {
+    align-items: center;
+    display: flex;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.piece {
+    display: block;
+    height: var(--disc-size);
+    object-fit: contain;
+    width: var(--disc-size);
+}
+
+#white-stack {
+    flex-direction: column;
+}
+
+/* Result Display Styling */
 #game-result {
-    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
     pointer-events: none;
+    position: fixed;
 }
 
 #game-result img {
-    max-width: 80vw;
-    max-height: 60vh;
     display: block;
+    max-height: 60vh;
+    max-width: 80vw;
 }
 
+
+/* Keyboard Mode Styling */
 body.keyboard-mode #game-board {
     pointer-events: none;
 }
 
 #mode-indicator {
-    position: fixed;
     bottom: 2vmin;
+    height: 6vmin;
+    position: fixed;
     right: 2vmin;
     width: 6vmin;
-    height: 6vmin;
-    z-index: 1000;
 }
