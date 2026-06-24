@@ -312,7 +312,7 @@ function countPieces() {
         showResultOverlay("./assets/win-black.svg", "Black wins");
         return {black: black, white: white, winner: "black"};
     } else if (white > black) {
-        showResultOverlay("./assets/win-white.png", "White wins");
+        showResultOverlay("./assets/win-white.svg", "White wins");
         return {black: black, white: white, winner: "white"};
     } else {
         showResultOverlay("./assets/tie.svg", "Tie");
