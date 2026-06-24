@@ -6,6 +6,9 @@
     --disc-width: min(11vmin, 9vw);
     --board-width: min(90vmin, 75vw);
     --stack-gap: min(4vmin, 4vw);
+
+    --selected-cell: #ffffff99;
+    --selected-cell-2: #ffffff1f;
 }
 
 
@@ -84,8 +87,8 @@ body {
 }
 
 .cell.valid {
-    box-shadow: 0 0 0.8vmin 0.2vmin #ffffff99 inset,
-                0 0 1.2vmin #ffffff1f;
+    box-shadow: 0 0 0.8vmin 0.2vmin var(--selected-cell) inset,
+                0 0 1.2vmin var(--selected-cell-2);
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -97,7 +100,6 @@ body {
     display: block;
 }
 
-/* game result overlay */
 .hidden { display: none; }
 #game-result {
     position: fixed;
@@ -107,6 +109,7 @@ body {
     z-index: 1000;
     pointer-events: none;
 }
+
 #game-result img {
     max-width: 80vw;
     max-height: 60vh;
@@ -115,4 +118,13 @@ body {
 
 body.keyboard-mode #game-board {
     pointer-events: none;
+}
+
+#mode-indicator {
+    position: fixed;
+    bottom: 2vmin;
+    right: 2vmin;
+    width: 6vmin;
+    height: 6vmin;
+    z-index: 1000;
 }

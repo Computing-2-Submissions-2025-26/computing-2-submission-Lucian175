@@ -54,6 +54,23 @@ function selectFirstValidMove() {
     highlightSelection();
 }
 
+function updateModeIndicator() {
+    const indicator = document.getElementById("mode-indicator");
+    if (!indicator) {
+        return;
+    }
+    indicator.src = (
+        keyboardMode
+        ? "./assets/keyboard.svg"
+        : "./assets/mouse.svg"
+    );
+    indicator.alt = (
+        keyboardMode
+        ? "Keyboard mode"
+        : "Mouse mode"
+    );
+}
+
 function moveSelection(direction) {
     const moves = getValidMoves();
     if (moves.length === 0) {
@@ -108,6 +125,7 @@ function handleKeydown(event) {
         event.preventDefault();
         keyboardMode = !keyboardMode;
         document.body.classList.toggle("keyboard-mode", keyboardMode);
+        updateModeIndicator();
         if (keyboardMode) {
             selectFirstValidMove();
         } else {
@@ -149,5 +167,6 @@ function setupKeyboardControls(playMoveCallback, rows, cols) {
     numCols = cols;
     document.addEventListener("keydown", handleKeydown);
 }
+
 
 export {setupKeyboardControls};
