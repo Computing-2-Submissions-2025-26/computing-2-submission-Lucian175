@@ -338,6 +338,12 @@ function resetGame() {
     whiteRemaining = startingPieces;
 }
 
+/**
+ * A function for the purpose of letting the rejection of a move when no discs
+ * are remaining in the stack be tested easily.
+ * @param {*} colour - Colour of the disc stack being tested.
+ * @param {*} value - Value the disc stack is being set to.
+ */
 function setRemainingForTesting(colour, value) {
     if (colour === "black") {
         blackRemaining = value;
@@ -347,14 +353,14 @@ function setRemainingForTesting(colour, value) {
 }
 
 export {
+    countPieces,
     getBoard,
     getCurrentTurn,
-    playMove,
+    getRemaining,
     hasLegalMove,
     isLegalMove,
-    getRemaining,
-    updateStack,
-    countPieces,
+    playMove,
     resetGame,
-    setRemainingForTesting
+    setRemainingForTesting,
+    updateStack
 };
