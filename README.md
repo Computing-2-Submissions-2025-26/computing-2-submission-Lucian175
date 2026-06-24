@@ -53,4 +53,4 @@ I'll run the same commands when I download your repos.
 - [ ] Check submission on GitHub website.
 
 ### References
-Hallllllllo
+- claude.ai (sonnet 4.6) was used to implement functions and help debug (NOT make game logic)
