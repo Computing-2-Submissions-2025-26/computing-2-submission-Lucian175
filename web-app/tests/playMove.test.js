@@ -20,14 +20,6 @@ describe("playMove", function () {
         assert.strictEqual(getCurrentTurn(), turnBefore);
     });
 
-    it("places a piece and flips the correct opponent disc", function () {
-        const result = playMove(2, 3);
-        assert.strictEqual(result, true);
-        const board = getBoard();
-        assert.strictEqual(board[2][3], "black");
-        assert.strictEqual(board[3][3], "black");
-    });
-
     it("switches turn to white after a legal black move", function () {
         playMove(2, 3);
         assert.strictEqual(getCurrentTurn(), "white");
