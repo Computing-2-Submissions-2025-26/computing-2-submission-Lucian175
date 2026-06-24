@@ -4,7 +4,8 @@ import {
     getCurrentTurn,
     playMove,
     getRemaining,
-    resetGame
+    resetGame,
+    setRemainingForTesting
 } from "../Othello.js";
 
 describe("playMove", function () {
@@ -44,5 +45,32 @@ describe("playMove", function () {
         const blackBefore = getRemaining("black");
         playMove(0, 0);
         assert.strictEqual(getRemaining("black"), blackBefore);
+    });
+
+    it("flips discs in multiple directions from a single move", function () {
+        const board = getBoard();
+        Array.from({length: 8}).forEach(function (_, r) {
+            Array.from({length: 8}).forEach(function (_, c) {
+                board[r][c] = null;
+            });
+        });
+        board[4][5] = "white";
+        board[4][6] = "black";
+        board[5][4] = "white";
+        board[6][4] = "black";
+
+        const result = playMove(4, 4);
+
+        assert.strictEqual(result, true);
+        assert.strictEqual(board[4][4], "black");
+        assert.strictEqual(board[4][5], "black");
+        assert.strictEqual(board[5][4], "black");
+    });
+
+    it("rejects a move when the player has no discs remaining", function () {
+        resetGame();
+        setRemainingForTesting("black", 0);
+        const result = playMove(2, 3);
+        assert.strictEqual(result, false);
     });
 });

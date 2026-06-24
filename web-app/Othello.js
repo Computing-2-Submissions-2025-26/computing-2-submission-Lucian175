@@ -1,6 +1,7 @@
 import R from "./ramda.js";
 
 const boardSize = 8;
+const startingPieces = 30;
 const possibleDirections = [
     [-1, -1],
     [-1, 0],
@@ -12,8 +13,8 @@ const possibleDirections = [
     [1, 1]
 ];
 
-let blackRemaining = 30;
-let whiteRemaining = 30;
+let blackRemaining = startingPieces;
+let whiteRemaining = startingPieces;
 
 /**
  * Sets-up the board for the start of a game.
@@ -25,6 +26,7 @@ function createInitialBoard() {
             return null;
         }, boardSize);
     }, boardSize);
+
     newBoard[3][3] = "white";
     newBoard[3][4] = "black";
     newBoard[4][3] = "black";
@@ -103,6 +105,7 @@ function getFlipsInDirection(row, col, colour, dRow, dCol) {
     if (isOnBoard(r, c) && board[r][c] === colour && flips.length > 0) {
         return flips;
     }
+
     return [];
 }
 
@@ -117,12 +120,14 @@ function getFlipsInDirection(row, col, colour, dRow, dCol) {
  */
 function getAllFlips(row, col, colour) {
     let allFlips = [];
+
     R.forEach(function (direction) {
         const dRow = direction[0];
         const dCol = direction[1];
         const flips = getFlipsInDirection(row, col, colour, dRow, dCol);
         allFlips = allFlips.concat(flips);
     }, possibleDirections);
+
     return allFlips;
 }
 
@@ -138,6 +143,7 @@ function isLegalMove(row, col, colour) {
     if (board[row][col] !== null) {
         return false;
     }
+
     return getAllFlips(row, col, colour).length > 0;
 }
 
@@ -154,6 +160,7 @@ function hasLegalMove(colour) {
         ? blackRemaining
         : whiteRemaining
     );
+
     if (remainingCount <= 0) {
         return false;
     }
@@ -327,8 +334,16 @@ function countPieces() {
 function resetGame() {
     board = createInitialBoard();
     currentTurn = "black";
-    blackRemaining = 30;
-    whiteRemaining = 30;
+    blackRemaining = startingPieces;
+    whiteRemaining = startingPieces;
+}
+
+function setRemainingForTesting(colour, value) {
+    if (colour === "black") {
+        blackRemaining = value;
+    } else {
+        whiteRemaining = value;
+    }
 }
 
 export {
@@ -340,5 +355,6 @@ export {
     getRemaining,
     updateStack,
     countPieces,
-    resetGame
+    resetGame,
+    setRemainingForTesting
 };
