@@ -7,7 +7,7 @@ import {
     getCurrentTurn,
     countPieces
 } from "./Othello.js";
-
+import {setupKeyboardControls} from "./keyboard.js";
 import R from "./ramda.js";
 
 const board = document.getElementById("game-board");
@@ -17,25 +17,22 @@ const num_cols = 8;
 function render() {
     const currentBoard = getBoard();
     const cells = document.querySelectorAll(".cell");
-
-    Array.from(cells).forEach(function (cellElement) {
+    R.forEach(function (cellElement) {
         const row = Number(cellElement.dataset.row);
         const col = Number(cellElement.dataset.col);
         const value = currentBoard[row][col];
-
         cellElement.innerHTML = "";
-
         if (value !== null) {
-            const piece = document.createElement("div");
+            const piece = document.createElement("img");
             piece.classList.add("piece", value);
+            piece.src = "./assets/disc-" + value + ".svg";
+            piece.alt = value + " piece";
             cellElement.appendChild(piece);
         }
-    });
-
+    }, Array.from(cells));
     if (!hasLegalMove("black") && !hasLegalMove("white")) {
         countPieces();
     }
-
     updateStack("black");
     updateStack("white");
 }
@@ -68,5 +65,7 @@ R.times(function (row) {
         board.appendChild(cell);
     }, num_cols);
 }, num_rows);
+
+setupKeyboardControls(handleCellClick, num_rows, num_cols);
 
 render();

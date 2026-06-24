@@ -2,8 +2,6 @@
     --background-colour: #966A52;
     --board-border-colour: #242424;
     --board-colour: #479450;
-    --player-1-disc-colour: #000000;
-    --player-2-disc-colour: #ffffff;
 
     --disc-width: min(11vmin, 9vw);
     --board-width: min(90vmin, 75vw);
@@ -95,15 +93,8 @@ body {
 .piece {
     width: 80%;
     height: 80%;
-    border-radius: 50%;
-}
-
-.piece.black {
-    background: var(--player-1-disc-colour);
-}
-
-.piece.white {
-    background: var(--player-2-disc-colour);
+    object-fit: contain;
+    display: block;
 }
 
 /* game result overlay */
@@ -122,3 +113,6 @@ body {
     display: block;
 }
 
+body.keyboard-mode #game-board {
+    pointer-events: none;
+}
