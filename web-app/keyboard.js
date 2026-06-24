@@ -168,5 +168,4 @@ function setupKeyboardControls(playMoveCallback, rows, cols) {
     document.addEventListener("keydown", handleKeydown);
 }
 
-
 export {setupKeyboardControls};

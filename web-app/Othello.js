@@ -1,7 +1,7 @@
 import R from "./ramda.js";
 
-const SIZE = 8;
-const DIRECTIONS = [
+const boardSize = 8;
+const possibleDirections = [
     [-1, -1],
     [-1, 0],
     [-1, 1],
@@ -12,16 +12,19 @@ const DIRECTIONS = [
     [1, 1]
 ];
 
+let blackRemaining = 30;
+let whiteRemaining = 30;
+
 /**
- * Sets-up the gameboard for the start of a game.
- * @returns {array} - The board with starting pieces in place.
+ * Sets-up the board for the start of a game.
+ * @returns {array} - An array containing the set-up board.
  */
 function createInitialBoard() {
     const newBoard = R.times(function () {
         return R.times(function () {
             return null;
-        }, SIZE);
-    }, SIZE);
+        }, boardSize);
+    }, boardSize);
     newBoard[3][3] = "white";
     newBoard[3][4] = "black";
     newBoard[4][3] = "black";
@@ -32,27 +35,28 @@ function createInitialBoard() {
 let board = createInitialBoard();
 let currentTurn = "black";
 
-
 /**
- * Gets board
- * @returns {array}
+ * Returns the set-up board so that main.js can access it without importing
+ * in the actual variable.
+ * @returns {array} - The set-up board.
  */
 function getBoard() {
     return board;
 }
 
 /**
- * Gets current turn
- * @returns
+ * Returns the current turn so that main.js can access it without importing
+ * in the actual variable.
+ * @returns {string} - Either black or white, depending on whose turn it is.
  */
 function getCurrentTurn() {
     return currentTurn;
 }
 
 /**
- * Get
- * @param {*} colour
- * @returns
+ * Sets what colour the opponent (non-current) player is.
+ * @param {*} colour - The colour of the current player's discs.
+ * @returns {string} - Either black or white, depending on whose turn it is.
  */
 function opponent(colour) {
     return (
@@ -62,27 +66,28 @@ function opponent(colour) {
     );
 }
 
-
 /**
- * Checks if a given set of coordinates is on the gameboard.
- * @param {*} row
- * @param {*} col
- * @returns {boolean}
+ * Checks if a given set of coordinates is on the gameboard so the
+ * getFlipsInDirection function doesn't exceed the board boundaries.
+ * @param {*} row - The row coordinate for the cell being tested.
+ * @param {*} col - The column coordinate for the cell being tested.
+ * @returns {boolean} - True if the coordinates are on the board.
  */
 function isOnBoard(row, col) {
-    return row >= 0 && row < SIZE && col >= 0 && col < SIZE;
+    return row >= 0 && row < boardSize && col >= 0 && col < boardSize;
 }
 
 
 /**
  * Determines coordinates of all flippable discs along a given direction vector,
  * starting from the point where the current player's disc is set.
- * @param {*} row
- * @param {*} col
- * @param {*} colour
- * @param {*} dRow
- * @param {*} dCol
- * @returns {array} - Either empty or containg the flippable coordinates.
+ * @param {*} row - The row coordinate for the cell being tested.
+ * @param {*} col - The column coordinate for the cell being tested.
+ * @param {*} colour - The colour of the disc being placed.
+ * @param {*} dRow - The horizontal component of the direction vector.
+ * @param {*} dCol - The vertical component of the direction vector.
+ * @returns {array} - An array containg the flippable coordinates along the
+ * given direction vector.
  */
 function getFlipsInDirection(row, col, colour, dRow, dCol) {
     const flips = [];
@@ -105,10 +110,10 @@ function getFlipsInDirection(row, col, colour, dRow, dCol) {
 /**
  * Returns all possible flippable disc coordinates caused by the current
  * player's placing of a disc.
- * @param {*} row
- * @param {*} col
- * @param {*} colour
- * @returns {array} - Details all possible disc flips.
+ * @param {*} row - The row coordinate for the cell being tested.
+ * @param {*} col - The column coordinate for the cell being tested.
+ * @param {*} colour - The colour of the disc being placed.
+ * @returns {array} - An array containing details of all possible disc flips.
  */
 function getAllFlips(row, col, colour) {
     let allFlips = [];
@@ -117,17 +122,16 @@ function getAllFlips(row, col, colour) {
         const dCol = direction[1];
         const flips = getFlipsInDirection(row, col, colour, dRow, dCol);
         allFlips = allFlips.concat(flips);
-    }, DIRECTIONS);
+    }, possibleDirections);
     return allFlips;
 }
-
 
 /**
  * Checks if a disc of the given colour is able to placed at the given
  * coordinates.
- * @param {*} row
- * @param {*} col
- * @param {*} colour
+ * @param {*} row - The row coordinate for the cell being tested.
+ * @param {*} col - The column coordinate for the cell being tested.
+ * @param {*} colour - The colour of the disc being placed.
  * @returns {boolean} - True if the cell is empty and there are possible flips.
  */
 function isLegalMove(row, col, colour) {
@@ -141,13 +145,10 @@ function isLegalMove(row, col, colour) {
 /**
  * Checks board to see if there are any legal moves possible for a given disc
  * colour.
- * @param {*} colour
+ * @param {*} colour - The colour of the disc being placed.
  * @returns {boolean}
  */
 function hasLegalMove(colour) {
-    // If the player has no discs remaining they cannot play even if there
-    // are legal board positions. Check the internal counters directly to
-    // avoid referencing a later-declared helper.
     let remainingCount = (
         colour === "black"
         ? blackRemaining
@@ -160,19 +161,14 @@ function hasLegalMove(colour) {
     return R.any(function (r) {
         return R.any(function (c) {
             return isLegalMove(r, c, colour);
-        }, R.range(0, SIZE));
-    }, R.range(0, SIZE));
+        }, R.range(0, boardSize));
+    }, R.range(0, boardSize));
 }
-
-
-let blackRemaining = 30;
-let whiteRemaining = 30;
-
 
 /**
  * Returns how many discs are remaining in a player's stack.
- * @param {*} colour
- * @returns {number}
+ * @param {*} colour - The colour of the disc stack being counted.
+ * @returns {number} - The number of discs that are still in a player's stack.
  */
 function getRemaining(colour) {
     return (
@@ -182,12 +178,11 @@ function getRemaining(colour) {
     );
 }
 
-
 /**
  * Plays a piece in a given coordinate, provided it is a legal move.
- * @param {*} row
- * @param {*} col
- * @returns {boolean}
+ * @param {*} row - The row coordinate of the cell being placed in.
+ * @param {*} col - The column coordinate of the cell being placed in.
+ * @returns {boolean} - True if the piece has been played.
  */
 function playMove(row, col) {
     const colour = currentTurn;
@@ -229,8 +224,9 @@ function playMove(row, col) {
 
 
 /**
- * Updates the displayed disc stack
- * @param {*} colour
+ * Updates the displayed disc stack to show the amount of discs remaining for
+ * each player and the current player via a face up disc.
+ * @param {*} colour - The colour of the disc stack being updated.
  */
 function updateStack(color) {
     const stack = document.getElementById(color + "-stack");
@@ -269,24 +265,11 @@ function updateStack(color) {
 }
 
 /**
- * Displays which player won the game in the console
- * @param {*} colour
- */
-function displayWinner(colour) {
-    if (colour === "black") {
-        console.log("black wins");
-    } else if (colour === "white") {
-        console.log("white wins");
-    } else if (colour === "tie") {
-        console.log("it's a tie");
-    }
-}
-
-/**
- * Activates the pop-up showing who won the game.
- * @param {*} src
- * @param {*} alt
- * @returns
+ * Activates the pop-up showing who won the game (or if it tied), also freezes
+ * all game interaction.
+ * @param {*} src - The source of the image being used.
+ * @param {*} alt - The text description of the image being used.
+ * @returns {undefined} - The function changes visual output of the game.
  */
 function showResultOverlay(src, alt) {
     try {
@@ -301,14 +284,15 @@ function showResultOverlay(src, alt) {
         container.appendChild(img);
         container.classList.remove("hidden");
     } catch (e) {
-        // ignore if DOM not present (e.g., tests)
         console.debug(e);
     }
 }
 
 /**
- * Count pieces on the board and declare the winner (or tie).
- * Returns an object with the counts and the winner string.
+ * Counts up the pieces when the game ends and triggers the showResultOverlay
+ * function to display the winner.
+ * @returns {object} - Allows winner to be seen programatically as well as via
+ * a visual pop-up.
  */
 function countPieces() {
     let black = 0;
@@ -321,24 +305,25 @@ function countPieces() {
             } else if (board[r][c] === "white") {
                 white += 1;
             }
-        }, SIZE);
-    }, SIZE);
+        }, boardSize);
+    }, boardSize);
 
     if (black > white) {
-        displayWinner("black");
         showResultOverlay("./assets/win-black.svg", "Black wins");
         return {black: black, white: white, winner: "black"};
     } else if (white > black) {
-        displayWinner("white");
         showResultOverlay("./assets/win-white.png", "White wins");
         return {black: black, white: white, winner: "white"};
     } else {
-        displayWinner("tie");
         showResultOverlay("./assets/tie.svg", "Tie");
         return {black: black, white: white, winner: "tie"};
     }
 }
 
+/**
+ * Allows unit tests to reset the game to starting state, something
+ * usually done by reloading the web page (which tests cannot do).
+ */
 function resetGame() {
     board = createInitialBoard();
     currentTurn = "black";

@@ -13,6 +13,8 @@ import R from "./ramda.js";
 const board = document.getElementById("game-board");
 const num_rows = 8;
 const num_cols = 8;
+document.documentElement.style.setProperty("--num-rows", num_rows);
+document.documentElement.style.setProperty("--num-cols", num_cols);
 
 function render() {
     const currentBoard = getBoard();

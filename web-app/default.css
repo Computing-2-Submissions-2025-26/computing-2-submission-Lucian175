@@ -2,16 +2,15 @@
     --background-colour: #966A52;
     --board-border-colour: #242424;
     --board-colour: #479450;
+    --board-spacing: 0.8%;
+    --board-width: min(90vmin, 75vw);
 
     --disc-width: min(11vmin, 9vw);
-    --board-width: min(90vmin, 75vw);
     --stack-gap: min(4vmin, 4vw);
 
     --selected-cell: #ffffff99;
     --selected-cell-2: #ffffff1f;
 }
-
-
 
 body {
     min-height: 100vh;
@@ -23,7 +22,6 @@ body {
     background: var(--background-colour);
 }
 
-
 #board-area {
     display: flex;
     flex-direction: column;
@@ -34,15 +32,15 @@ body {
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    gap: 0.5%;
+    grid-template-columns: repeat(var(--num-cols), 1fr);
+    grid-template-rows: repeat(var(--num-rows), 1fr);
+    gap: var(--board-spacing);
     background: var(--board-border-colour);
-    padding: 0.8%;
+    padding: var(--board-spacing);
     border-radius: 1.5%;
     width: var(--board-width);
     max-width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: var(--num-cols)/var(--num-rows);
 }
 
 #game-wrapper {
@@ -100,7 +98,10 @@ body {
     display: block;
 }
 
-.hidden { display: none; }
+.hidden { 
+    display: none;
+}
+
 #game-result {
     position: fixed;
     left: 50%;

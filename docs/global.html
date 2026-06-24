@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#countPieces">countPieces</a></li><li><a href="global.html#createInitialBoard">createInitialBoard</a></li><li><a href="global.html#displayWinner">displayWinner</a></li><li><a href="global.html#getAllFlips">getAllFlips</a></li><li><a href="global.html#getFlipsInDirection">getFlipsInDirection</a></li><li><a href="global.html#getRemaining">getRemaining</a></li><li><a href="global.html#hasLegalMove">hasLegalMove</a></li><li><a href="global.html#isLegalMove">isLegalMove</a></li><li><a href="global.html#playMove">playMove</a></li><li><a href="global.html#updateStack">updateStack</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#countPieces">countPieces</a></li><li><a href="global.html#createInitialBoard">createInitialBoard</a></li><li><a href="global.html#getAllFlips">getAllFlips</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#getCurrentTurn">getCurrentTurn</a></li><li><a href="global.html#getFlipsInDirection">getFlipsInDirection</a></li><li><a href="global.html#getRemaining">getRemaining</a></li><li><a href="global.html#hasLegalMove">hasLegalMove</a></li><li><a href="global.html#isLegalMove">isLegalMove</a></li><li><a href="global.html#isOnBoard">isOnBoard</a></li><li><a href="global.html#opponent">opponent</a></li><li><a href="global.html#playMove">playMove</a></li><li><a href="global.html#resetGame">resetGame</a></li><li><a href="global.html#showResultOverlay">showResultOverlay</a></li><li><a href="global.html#updateStack">updateStack</a></li></ul>
     
 </nav>
 
@@ -130,7 +130,7 @@
 
     
 
-    <h4 class="name" id="countPieces"><span class="type-signature"></span>countPieces<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="countPieces"><span class="type-signature"></span>countPieces<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -140,99 +140,14 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Count pieces on the board and declare the winner (or tie).
-Returns an object with the counts and the winner string.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Counts up the pieces when the game ends and triggers the showResultOverlay
+function to display the winner.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line244">line 244</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="createInitialBoard"><span class="type-signature"></span>createInitialBoard<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Sets-up the gameboard for the start of a game.</p></li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line17">line 17</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line297">line 297</a>
     </li></ul></dd>
     
 
@@ -298,7 +213,8 @@ Returns an object with the counts and the winner string.</p></li></ul></dd>
         
 <div class="param-desc">
     <ul>
-<li>The board with starting pieces in place.</li>
+<li>Allows winner to be seen programatically as well as via
+a visual pop-up.</li>
 </ul>
 </div>
 
@@ -310,7 +226,7 @@ Returns an object with the counts and the winner string.</p></li></ul></dd>
     </dt>
     <dd>
         
-<span class="param-type">array</span>
+<span class="param-type">object</span>
 
 
 
@@ -326,7 +242,7 @@ Returns an object with the counts and the winner string.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="displayWinner"><span class="type-signature"></span>displayWinner<span class="signature">(colour)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createInitialBoard"><span class="type-signature"></span>createInitialBoard<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
 
     
 
@@ -336,13 +252,13 @@ Returns an object with the counts and the winner string.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Displays which player won the game in the console</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Sets-up the board for the start of a game.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line230">line 230</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -389,70 +305,45 @@ Returns an object with the counts and the winner string.</p></li></ul></dd>
 
 
 
-    <h5 class="h5-parameters">Parameters:</h5>
-    
 
-<table class="params">
-    <thead>
-    <tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
         
-        <th>Name</th>
+<div class="param-desc">
+    <ul>
+<li>An array containing the set-up board.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>colour</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
+<span class="param-type">array</span>
 
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    </dd>
+</dl>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -478,7 +369,7 @@ player's placing of a disc.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line91">line 91</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -567,7 +458,7 @@ player's placing of a disc.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The row coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -591,7 +482,7 @@ player's placing of a disc.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The column coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -615,7 +506,7 @@ player's placing of a disc.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the disc being placed.</p></td>
         </tr>
 
     
@@ -642,7 +533,7 @@ player's placing of a disc.</p></li></ul></dd>
         
 <div class="param-desc">
     <ul>
-<li>Details all possible disc flips.</li>
+<li>An array containing details of all possible disc flips.</li>
 </ul>
 </div>
 
@@ -655,6 +546,228 @@ player's placing of a disc.</p></li></ul></dd>
     <dd>
         
 <span class="param-type">array</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getBoard"><span class="type-signature"></span>getBoard<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns the set-up board so that main.js can access it without importing
+in the actual variable.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>The set-up board.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getCurrentTurn"><span class="type-signature"></span>getCurrentTurn<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns the current turn so that main.js can access it without importing
+in the actual variable.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>Either black or white, depending on whose turn it is.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
 
 
 
@@ -687,7 +800,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line65">line 65</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -776,7 +889,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The row coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -800,7 +913,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The column coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -824,7 +937,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the disc being placed.</p></td>
         </tr>
 
     
@@ -848,7 +961,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The horizontal component of the direction vector.</p></td>
         </tr>
 
     
@@ -872,7 +985,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The vertical component of the direction vector.</p></td>
         </tr>
 
     
@@ -899,7 +1012,8 @@ starting from the point where the current player's disc is set.</p></li></ul></d
         
 <div class="param-desc">
     <ul>
-<li>Either empty or containg the flippable coordinates.</li>
+<li>An array containg the flippable coordinates along the
+given direction vector.</li>
 </ul>
 </div>
 
@@ -943,7 +1057,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line146">line 146</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line173">line 173</a>
     </li></ul></dd>
     
 
@@ -1032,7 +1146,7 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the disc stack being counted.</p></td>
         </tr>
 
     
@@ -1057,6 +1171,12 @@ starting from the point where the current player's disc is set.</p></li></ul></d
 <h5 class="h5-returns">Returns:</h5>
 
         
+<div class="param-desc">
+    <ul>
+<li>The number of discs that are still in a player's stack.</li>
+</ul>
+</div>
+
 
 
 <dl class="param-type">
@@ -1098,7 +1218,7 @@ colour.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line124">line 124</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -1187,7 +1307,7 @@ colour.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the disc being placed.</p></td>
         </tr>
 
     
@@ -1253,7 +1373,7 @@ coordinates.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line110">line 110</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -1342,7 +1462,7 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The row coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -1366,7 +1486,7 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The column coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -1390,7 +1510,7 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the disc being placed.</p></td>
         </tr>
 
     
@@ -1445,7 +1565,7 @@ coordinates.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="playMove"><span class="type-signature"></span>playMove<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="isOnBoard"><span class="type-signature"></span>isOnBoard<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
@@ -1455,13 +1575,14 @@ coordinates.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Plays a piece in a given coordinate, provided it is a legal move.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Checks if a given set of coordinates is on the gameboard so the
+getFlipsInDirection function doesn't exceed the board boundaries.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line159">line 159</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -1550,7 +1671,7 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The row coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -1574,7 +1695,7 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The column coordinate for the cell being tested.</p></td>
         </tr>
 
     
@@ -1599,6 +1720,12 @@ coordinates.</p></li></ul></dd>
 <h5 class="h5-returns">Returns:</h5>
 
         
+<div class="param-desc">
+    <ul>
+<li>True if the coordinates are on the board.</li>
+</ul>
+</div>
+
 
 
 <dl class="param-type">
@@ -1623,7 +1750,7 @@ coordinates.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="updateStack"><span class="type-signature"></span>updateStack<span class="signature">(colour)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="opponent"><span class="type-signature"></span>opponent<span class="signature">(colour)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
@@ -1633,13 +1760,13 @@ coordinates.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Updates the displayed disc stack</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Sets what colour the opponent (non-current) player is.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line192">line 192</a>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -1728,7 +1855,623 @@ coordinates.</p></li></ul></dd>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The colour of the current player's discs.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>Either black or white, depending on whose turn it is.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="playMove"><span class="type-signature"></span>playMove<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Plays a piece in a given coordinate, provided it is a legal move.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The row coordinate of the cell being placed in.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The column coordinate of the cell being placed in.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>True if the piece has been played.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="resetGame"><span class="type-signature"></span>resetGame<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Allows unit tests to reset the game to starting state, something
+usually done by reloading the web page (which tests cannot do).</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="showResultOverlay"><span class="type-signature"></span>showResultOverlay<span class="signature">(src, alt)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Activates the pop-up showing who won the game (or if it tied), also freezes
+all game interaction.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line274">line 274</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The source of the image being used.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The text description of the image being used.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>The function changes visual output of the game.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">undefined</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateStack"><span class="type-signature"></span>updateStack<span class="signature">(colour)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Updates the displayed disc stack to show the amount of discs remaining for
+each player and the current player via a face up disc.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Othello.js.html">Othello.js</a>, <a href="Othello.js.html#line231">line 231</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>colour</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The colour of the disc stack being updated.</p></td>
         </tr>
 
     
@@ -1773,7 +2516,7 @@ coordinates.</p></li></ul></dd>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Jun 23 2026 18:10:03 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 12:43:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
