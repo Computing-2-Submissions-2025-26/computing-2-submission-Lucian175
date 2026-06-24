@@ -7,6 +7,7 @@ import {
     resetGame,
     setRemainingForTesting
 } from "../Othello.js";
+import R from "../ramda.js";
 
 describe("playMove", function () {
     beforeEach(function () {
@@ -41,11 +42,11 @@ describe("playMove", function () {
 
     it("flips discs in multiple directions from a single move", function () {
         const board = getBoard();
-        Array.from({length: 8}).forEach(function (_, r) {
-            Array.from({length: 8}).forEach(function (_, c) {
+        R.forEach(function (r) {
+            R.forEach(function (c) {
                 board[r][c] = null;
-            });
-        });
+            }, R.range(0, 8));
+        }, R.range(0, 8));
         board[4][5] = "white";
         board[4][6] = "black";
         board[5][4] = "white";
@@ -66,3 +67,4 @@ describe("playMove", function () {
         assert.strictEqual(result, false);
     });
 });
+

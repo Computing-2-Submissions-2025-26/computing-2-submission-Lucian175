@@ -1,11 +1,11 @@
 import {
+    countPieces,
     getBoard,
-    playMove,
-    hasLegalMove,
-    updateStack,
-    isLegalMove,
     getCurrentTurn,
-    countPieces
+    hasLegalMove,
+    isLegalMove,
+    playMove,
+    updateStack
 } from "./Othello.js";
 import {setupKeyboardControls} from "./keyboard.js";
 import R from "./ramda.js";
